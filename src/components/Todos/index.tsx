@@ -1,9 +1,8 @@
 import {useState, useEffect, useContext} from 'react';
 import { axiosPublic, AxiosError } from '../../api/axios';
 import { Todos } from '../../types/todo';
-import ToggleDarkMode from '../Styled/ToggleBtn';
 import DarkModeContext from '../../context/DarkMode';
-import { Container, StyledContainer, Title, TodoContainer, ActionContainer } from '../Styled/styled';
+import { Container, StyledContainer, Title, TodoContainer, ActionContainer, ButtonLink, Button } from '../Styled/styled';
 
 
 const Component = ()  => {
@@ -47,9 +46,11 @@ const Component = ()  => {
     const handleDelete = (id: string) => async(event: any) => {
         try {
             setLoading(true);
-            await axiosPublic.delete(`/todos/${id}`);
-            fetchTodos();
-            setLoading(false)
+            const {data} = await axiosPublic.delete(`/todos/${id}`);
+            if(data.success) 
+                fetchTodos();
+                setLoading(false)
+                return
         }catch(error) {
             const err = error as AxiosError;
             if(err?.response) {
@@ -59,29 +60,31 @@ const Component = ()  => {
     }
 
     return (
-        <>
-        <ToggleDarkMode />
+        <Container>
         <Container>
             <Title>My Todo App</Title>
+            <Button>
+                <ButtonLink to="/add-todo">Add Todo</ButtonLink>
+            </Button>
         </Container>
         <StyledContainer isDark={isDark} width={70}>
+            
             {
-                !todos || todos.length === 0 || loading ? "No Data" :  todos.map((todo: Todos) => {
+                !todos || todos.length === 0  ? "No Data" :  todos.map((todo: Todos) => {
                     return (
                     <TodoContainer key={todo._id}>
                         <div>
                             <p>{todo.title}</p>
                         </div>
                         <ActionContainer>
-                            <button>Completed</button>
-                            <button onClick={handleDelete(todo._id)}>Delete</button>
+                            <Button>Completed</Button>
                         </ActionContainer>
                     </TodoContainer>
                     )
                 })
             }
         </StyledContainer>
-        </>
+        </Container>
     );
 }
 

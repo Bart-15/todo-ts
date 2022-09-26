@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 
 const dark : string = "#21262d";
 const light : string = "#fff";
@@ -11,7 +12,7 @@ export const TogglewWrapper = styled.div`
 export const ToggleLabel = styled.label`
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
     width: 42px;
     height: 26px;
     border-radius: 15px;
@@ -67,7 +68,8 @@ export const TodoContainer = styled.div`
 `
 
 export const Container = styled.div`
-    max-width:1200px;
+    max-width:70%;
+    padding:2rem;
     margin:0 auto;
 `
 
@@ -82,4 +84,43 @@ export const ActionContainer = styled.div`
     align-items: center;
     justify-content: space-between;
     gap:4px;
+`
+
+export const ButtonLink = styled(Link)`
+    padding:10px 20px;
+`
+
+export const Button = styled.button`
+    border-radius:10px;
+    padding:10px 20px;
+    border:none;
+    cursor:pointer;
+    box-shadow: 2px 4px 10px 0px rgba(0,0,0,0.43);
+`
+
+export const FormContainer = styled.form`
+    padding:2rem;
+`
+
+export const FormGroup = styled.div`
+    display:flex;
+    flex-direction:column;
+    padding:0 0 1rem;
+`
+
+export const FormLabel = styled.label`
+    font-size:14px;
+    letter-spacing:1px;
+`
+
+export const ErrorText = styled.span`
+    font-size:14px;
+`
+
+export const Input = styled.input`
+    border-radius:5px;
+    padding:5px 10px;
+    border:none;
+    background:#333b46;
+    color:#fff;
 `
